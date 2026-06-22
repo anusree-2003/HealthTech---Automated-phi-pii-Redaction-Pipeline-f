@@ -1,12 +1,25 @@
 from detector import detect_pii
 
-text = """
-John Smith
+samples = [
+
+"""
+Patient: John Smith
 Email: john@gmail.com
 Phone: 9876543210
+""",
+
 """
+Patient: Alex
+Email: alex123@gmail.com
+Website: www.hospital.com
+"""
+]
 
-results = detect_pii(text)
+for i,text in enumerate(samples):
 
-for result in results:
-    print(result.entity_type)
+    print("\nTEST",i+1)
+
+    results=detect_pii(text)
+
+    for r in results:
+        print(r)
