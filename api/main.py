@@ -1,30 +1,62 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from api.detector import detect_pii
 import re
 
 app = FastAPI()
 
+
+class TextRequest(BaseModel):
+    text: str
+
+
+# Week 1 - Regex Redaction
 def redact(text: str):
+
     # Email
-    text = re.sub(r"\b[\w.-]+@[\w.-]+\.\w+\b", "[EMAIL]", text)
+    text = re.sub(
+        r"\b[\w.-]+@[\w.-]+\.\w+\b",
+        "[EMAIL]",
+        text
+    )
 
-    # Phone
-    text = re.sub(r"\b\d{10}\b", "[PHONE]", text)
+    # Phone Number
+    text = re.sub(
+        r"\b\d{10}\b",
+        "[PHONE]",
+        text
+    )
 
-    # Names (simple demo rule)
-    text = re.sub(r"\bJohn\b", "[NAME]", text)
+    # Demo Name Rule
+    text = re.sub(
+        r"\bJohn\b",
+        "[NAME]",
+        text
+    )
 
     return text
 
 
 @app.get("/")
 def home():
-    return {"message": "HealthTech PHI Redaction API Running"}
+    return {
+        "message": "HealthTech PHI Redaction API Running"
+    }
 
 
 @app.post("/redact")
-def redact_text(data: dict):
-    text = data.get("text", "")
+def redact_text(data: TextRequest):
+
+    text = data.text
+
+    # Week 2 Integration with Member 2 NLP Module
+    entities = detect_pii(text)
+
+    redacted_text = redact(text)
+
     return {
         "original": text,
-        "redacted": redact(text)
+        "entities": entities,
+        "redacted": redacted_text,
+        "entity_count": len(entities)
     }
