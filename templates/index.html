@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HealthTech PHI/PII Redaction Dashboard</title>
+
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+
+    <!-- Header -->
+
+    <header>
+
+
+        <h1>
+            🏥 HealthTech Secure PHI/PII Redaction Dashboard
+        </h1>
+
+
+        <p>
+            AI Powered Healthcare Data Protection
+        </p>
+
+
+    </header>
+
+
+
+
+
+
+    <!-- Dashboard Cards -->
+
+
+    <section class="dashboard">
+
+
+        <div class="card">
+
+            <h3>
+                PHI Found
+            </h3>
+
+
+            <h2 id="phiCount">
+                0
+            </h2>
+
+
+        </div>
+
+
+
+
+
+        <div class="card">
+
+            <h3>
+                Scan Status
+            </h3>
+
+
+            <h2 id="scanStatus">
+                Ready
+            </h2>
+
+
+        </div>
+
+
+
+
+
+        <div class="card">
+
+            <h3>
+                API Status
+            </h3>
+
+
+            <h2 class="online">
+                Online 🟢
+            </h2>
+
+
+        </div>
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Input Section -->
+
+
+    <section class="box">
+
+
+        <h2>
+            Input Source
+        </h2>
+
+
+
+
+
+
+        <!-- Upload Document -->
+
+
+        <div class="upload-section">
+
+
+            <h3>
+                📄 Upload Healthcare Document
+            </h3>
+
+
+
+
+
+            <label for="documentUpload" class="upload-box">
+
+
+                <div>
+
+
+                    <div style="font-size:40px;">
+                        📁
+                    </div>
+
+
+
+                    <p>
+                        Drag & Drop Healthcare Document
+                    </p>
+
+
+
+                    <span>
+                        or Click to Browse
+                    </span>
+
+
+
+                    <small>
+                        Supported formats: PDF, TXT
+                    </small>
+
+
+                </div>
+
+
+
+            </label>
+
+
+
+
+
+
+            <input
+
+            type="file"
+
+            id="documentUpload"
+
+            accept=".txt,.pdf"
+
+            hidden>
+
+
+
+
+
+
+            <p id="fileName">
+
+                No file selected
+
+            </p>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="divider">
+
+            OR
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- Manual Input -->
+
+
+        <h3>
+            📝 Enter Clinical Notes Manually
+        </h3>
+
+
+
+
+
+
+        <textarea
+
+        id="inputText"
+
+        placeholder="Paste patient information here..."></textarea>
+
+
+
+
+
+
+
+        <div class="buttons">
+
+
+            <button onclick="loadSample()">
+
+                Sample
+
+            </button>
+
+
+
+
+
+            <button onclick="clearText()">
+
+                Clear
+
+            </button>
+
+
+
+
+
+            <button class="primary" onclick="detectPII()">
+
+                Detect & Redact
+
+            </button>
+
+
+
+        </div>
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Entity Table -->
+
+
+    <section class="box">
+
+
+        <h2>
+            Detected Entities
+        </h2>
+
+
+
+
+        <table>
+
+
+            <thead>
+
+
+                <tr>
+
+
+                    <th>
+                        Entity
+                    </th>
+
+
+
+                    <th>
+                        Value
+                    </th>
+
+
+
+                    <th>
+                        Confidence
+                    </th>
+
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+
+            <tbody id="entityTable">
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Output -->
+
+
+    <section class="box">
+
+
+        <h2>
+            Secure Redacted Output
+        </h2>
+
+
+
+
+
+
+        <textarea
+
+        id="outputText"
+
+        readonly></textarea>
+
+
+
+
+
+
+        <div class="buttons">
+
+
+            <button onclick="copyOutput()">
+
+                Copy
+
+            </button>
+
+
+
+
+
+            <button onclick="downloadReport()">
+
+                Download Report
+
+            </button>
+
+
+
+        </div>
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Security Summary -->
+
+
+    <section class="summary">
+
+
+        <h2>
+            Security Summary
+        </h2>
+
+
+
+
+        <p>
+            ✔ Scan Completed
+        </p>
+
+
+
+
+
+        <h3>
+            Protected Information Found
+        </h3>
+
+
+
+
+        <ul id="summaryList">
+
+
+        </ul>
+
+
+
+
+
+
+        <h3>
+            Overall Status
+        </h3>
+
+
+
+
+
+        <p class="protected">
+
+            🟢 Protected
+
+        </p>
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <footer>
+
+
+        © HealthTech PHI/PII Redaction Pipeline
+
+        <br>
+
+        Cyber Security Internship Project
+
+
+    </footer>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="/static/js/script.js"></script>
+
+
+
+</body>
+
+</html>
