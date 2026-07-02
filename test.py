@@ -2,11 +2,17 @@ from detector import detect_pii
 
 samples = [
 
+# """
+# Patient: John Smith
+# Email: john@gmail.com
+# Phone: 9876543210
+# """
 """
 Patient: John Smith
+PAN: ABCDE1234F
+Aadhaar: 1234 5678 9012
 Email: john@gmail.com
-Phone: 9876543210
-""",
+""" ,
 
 """
 Patient: Alex

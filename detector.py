@@ -1,12 +1,46 @@
-from presidio_analyzer import AnalyzerEngine
-
+from presidio_analyzer import(
+AnalyzerEngine,
+Pattern,
+PatternRecognizer
+)
 analyzer = AnalyzerEngine()
+pan_pattern = Pattern(
+    name="PAN",
+    regex=r"[A-Z]{5}[0-9]{4}[A-Z]",
+    score=0.9
+)
+
+pan_recognizer = PatternRecognizer(
+    supported_entity="PAN_NUMBER",
+    patterns=[pan_pattern]
+)
+
+analyzer.registry.add_recognizer(
+    pan_recognizer
+)
+
+aadhaar_pattern = Pattern(
+    name="AADHAAR",
+    regex=r"\b\d{4}\s\d{4}\s\d{4}\b",
+    score=0.9
+)
+
+aadhaar_recognizer = PatternRecognizer(
+    supported_entity="AADHAAR_NUMBER",
+    patterns=[aadhaar_pattern]
+)
+
+analyzer.registry.add_recognizer(
+    aadhaar_recognizer
+)
 
 ALLOWED = [
     "PERSON",
     "EMAIL_ADDRESS",
     "PHONE_NUMBER",
-    "URL"
+    "URL",
+    "PAN_NUMBER",
+    "AADHAAR_NUMBER"
 ]
 
 def detect_pii(text):
