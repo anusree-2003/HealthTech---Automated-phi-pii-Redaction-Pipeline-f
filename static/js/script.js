@@ -1,490 +1,458 @@
-async function detectPII(){
+// =======================================
+// Detect PHI / PII
+// =======================================
+
+async function detectPII() {
 
     const text = document.getElementById("inputText").value;
 
-
-    if(text.trim() === ""){
-
-        alert("Please enter clinical text");
-
+    if (text.trim() === "") {
+        showToast("Please enter clinical text");
         return;
-
     }
 
-
-
     document.getElementById("scanStatus").innerText = "Scanning...";
-
+    document.getElementById("scanStatus").classList.add("loading");
 
     const startTime = performance.now();
 
+    try {
 
-
-    try{
-
-
-        const response = await fetch("/redact",{
-
-            method:"POST",
-
-            headers:{
-
-                "Content-Type":"application/json"
-
+        const response = await fetch("/redact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-
-
-            body:JSON.stringify({
-
-                text:text
-
+            body: JSON.stringify({
+                text: text
             })
-
         });
-
-
-
 
         const data = await response.json();
 
+        const endTime = performance.now();
 
+        const seconds = ((endTime - startTime) / 1000).toFixed(2);
 
+        document.getElementById("scanTime").innerText =
+            seconds + " s";
 
         displayResults(data);
 
+        document.getElementById("scanStatus").innerText =
+            "Completed";
 
+        document.getElementById("scanStatus").classList.remove("loading");
 
-        const endTime = performance.now();
-
-
-        console.log(
-
-            "Scan Time:",
-            ((endTime-startTime)/1000).toFixed(2),
-            "sec"
-
-        );
-
-
+        showToast("Scan completed successfully");
 
     }
 
-
-
-    catch(error){
-
+    catch (error) {
 
         console.log(error);
 
-
-        alert("Backend connection failed");
-
-
         document.getElementById("scanStatus").innerText =
-        "Error";
+            "Error";
 
+        document.getElementById("scanStatus").classList.remove("loading");
+
+        showToast("Backend connection failed");
 
     }
-
 
 }
 
 
 
+// =======================================
+// Display Results
+// =======================================
 
-
-
-
-// Display Detection Results
-
-function displayResults(data){
-
-
-
-    // Redacted Output
+function displayResults(data) {
 
     document.getElementById("outputText").value =
-
-    data.redacted || "";
-
-
-
-
-
-
-    // PHI Count
+        data.redacted || "";
 
     document.getElementById("phiCount").innerText =
+        data.entity_count || 0;
 
-    data.entity_count || 0;
-
-
-
-
-
-
-    // Entity Table
+    document.getElementById("summaryCount").innerText =
+        data.entity_count || 0;
 
     const table =
+        document.getElementById("entityTable");
 
-    document.getElementById("entityTable");
+    table.innerHTML = "";
 
+    let entityTypes = [];
 
-    table.innerHTML="";
+    if (data.entities) {
 
-
-
-    let entityTypes=[];
-
-
-
-
-
-    if(data.entities){
-
-
-
-        data.entities.forEach(entity=>{
-
+        data.entities.forEach(entity => {
 
             let entityName =
-
-            entity.entity ||
-
-            entity.label ||
-
-            entity.type ||
-
-            "PHI";
-
-
-
+                entity.type ||
+                entity.entity ||
+                entity.label ||
+                "PHI";
 
             let entityValue =
+                entity.value ||
+                entity.text ||
+                "";
 
-            entity.value ||
-
-            entity.text ||
-
-            "";
-
-
-
-
+            let confidence =
+                entity.score ||
+                entity.confidence ||
+                0.90;
 
             entityTypes.push(entityName);
 
+            let badgeClass = "badge";
 
+            switch (entityName) {
 
+                case "PERSON":
+                    badgeClass += " badge-person";
+                    break;
 
+                case "EMAIL_ADDRESS":
+                    badgeClass += " badge-email";
+                    break;
 
+                case "PHONE_NUMBER":
+                    badgeClass += " badge-phone";
+                    break;
+
+                case "URL":
+                    badgeClass += " badge-url";
+                    break;
+            }
 
             table.innerHTML += `
 
             <tr>
 
-            <td>${entityName}</td>
+                <td>
+                    <span class="${badgeClass}">
+                        ${entityName}
+                    </span>
+                </td>
 
-            <td>${entityValue}</td>
+                <td>${entityValue}</td>
 
-            <td>${entity.confidence || "95%"}</td>
+                <td>${(confidence * 100).toFixed(0)}%</td>
 
             </tr>
 
             `;
 
-
-
         });
-
 
     }
 
+    updateSummary(entityTypes);
 
-
-
-
-
-
-    // Security Summary
-
-    const summary =
-
-    document.getElementById("summaryList");
-
-
-
-    summary.innerHTML="";
-
-
-
-    [...new Set(entityTypes)].forEach(item=>{
-
-
-        summary.innerHTML +=
-
-        `<li>• ${item}</li>`;
-
-
-    });
-
-
-
-
-
-
-
-    document.getElementById("scanStatus").innerText =
-
-    "Completed";
-
+    updateRisk(data.entity_count);
 
 }
 
 
 
+// =======================================
+// Security Summary
+// =======================================
+
+function updateSummary(entityTypes) {
+
+    const summary =
+        document.getElementById("summaryList");
+
+    summary.innerHTML = "";
+
+    let counts = {};
+
+    entityTypes.forEach(item => {
+
+        counts[item] = (counts[item] || 0) + 1;
+
+    });
+
+    for (let key in counts) {
+
+        summary.innerHTML +=
+
+        `<li>✔ ${key} : ${counts[key]}</li>`;
+
+    }
+
+}
 
 
 
+// =======================================
+// Risk Level
+// =======================================
 
+function updateRisk(count) {
 
-function loadSample(){
+    const risk =
+        document.getElementById("riskLevel");
 
+    if (count == 0) {
+
+        risk.innerText = "Safe 🟢";
+
+        risk.className = "low";
+
+    }
+
+    else if (count <= 2) {
+
+        risk.innerText = "Low 🟢";
+
+        risk.className = "low";
+
+    }
+
+    else if (count <= 5) {
+
+        risk.innerText = "Medium 🟡";
+
+        risk.className = "medium";
+
+    }
+
+    else {
+
+        risk.innerText = "High 🔴";
+
+        risk.className = "high";
+
+    }
+
+}
+
+// =======================================
+// Sample Text
+// =======================================
+
+function loadSample() {
 
     document.getElementById("inputText").value =
 
 `Patient Name: John Smith
-
 Email: john@gmail.com
-
 Phone: 9876543210
-
 Website: www.google.com`;
 
+}
+
+
+
+// =======================================
+// Clear
+// =======================================
+
+function clearText() {
+
+    document.getElementById("inputText").value = "";
+
+    document.getElementById("outputText").value = "";
+
+    document.getElementById("entityTable").innerHTML = "";
+
+    document.getElementById("summaryList").innerHTML = "";
+
+    document.getElementById("phiCount").innerText = "0";
+
+    document.getElementById("summaryCount").innerText = "0";
+
+    document.getElementById("scanTime").innerText = "0.00 s";
+
+    document.getElementById("scanStatus").innerText = "Ready";
+
+    document.getElementById("riskLevel").innerText = "Low 🟢";
+
+    document.getElementById("riskLevel").className = "low";
 
 }
 
 
 
+// =======================================
+// Copy Output
+// =======================================
 
+function copyOutput() {
 
+    const output = document.getElementById("outputText");
 
+    if (output.value.trim() === "") {
 
-
-function clearText(){
-
-
-    document.getElementById("inputText").value="";
-
-
-    document.getElementById("outputText").value="";
-
-
-    document.getElementById("entityTable").innerHTML="";
-
-
-    document.getElementById("phiCount").innerText="0";
-
-
-    document.getElementById("summaryList").innerHTML="";
-
-
-    document.getElementById("scanStatus").innerText="Ready";
-
-
-}
-
-
-
-
-
-
-
-
-function copyOutput(){
-
-
-    const output =
-
-    document.getElementById("outputText");
-
-
-
-    navigator.clipboard.writeText(output.value);
-
-
-
-    alert("Copied successfully");
-
-
-}
-
-
-
-
-
-
-
-
-function downloadReport(){
-
-
-    const text =
-
-    document.getElementById("outputText").value;
-
-
-
-    const file = new Blob(
-
-        [text],
-
-        {type:"text/plain"}
-
-    );
-
-
-
-    const link =
-
-    document.createElement("a");
-
-
-
-    link.href =
-
-    URL.createObjectURL(file);
-
-
-
-    link.download =
-
-    "PHI_Redaction_Report.txt";
-
-
-
-    link.click();
-
-
-}
-
-
-
-
-
-
-
-
-
-// Healthcare Document Upload (PDF + TXT)
-
-const upload = document.getElementById("documentUpload");
-
-
-
-if(upload){
-
-
-
-upload.addEventListener("change", async function(event){
-
-
-
-    const file = event.target.files[0];
-
-
-
-    if(!file){
+        showToast("Nothing to copy");
 
         return;
 
     }
 
+    navigator.clipboard.writeText(output.value);
 
+    showToast("Report copied successfully");
 
-    document.getElementById("fileName").innerText =
-
-    "Selected File: " + file.name;
-
-
-
-
-
-    const formData = new FormData();
+}
 
 
 
-    formData.append("file", file);
+// =======================================
+// Download Report
+// =======================================
 
+function downloadReport() {
 
+    const report = document.getElementById("outputText").value;
 
+    if (report.trim() === "") {
 
+        showToast("No report available");
 
-
-    try{
-
-
-
-        const response = await fetch("/upload",{
-
-
-            method:"POST",
-
-
-            body:formData
-
-
-        });
-
-
-
-
-
-        const data = await response.json();
-
-
-
-
-
-        // Put extracted text
-
-        document.getElementById("inputText").value =
-
-        data.original || "";
-
-
-
-
-
-
-        // Show results
-
-        displayResults(data);
-
-
-
+        return;
 
     }
 
+    const blob = new Blob(
+
+        [report],
+
+        { type: "text/plain" }
+
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "HealthTech_Redaction_Report.txt";
+
+    link.click();
+
+    showToast("Report downloaded");
+
+}
 
 
-    catch(error){
 
+// =======================================
+// Toast Notification
+// =======================================
 
+function showToast(message) {
 
-        console.log(error);
+    let toast = document.getElementById("toast");
 
+    if (!toast) {
 
-        alert("Document upload failed");
+        toast = document.createElement("div");
 
+        toast.id = "toast";
+
+        toast.className = "toast";
+
+        document.body.appendChild(toast);
 
     }
 
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
 
 
 
+// =======================================
+// Upload Document
+// =======================================
 
-});
+const upload = document.getElementById("documentUpload");
 
+if (upload) {
+
+    upload.addEventListener("change", async function (event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+
+            return;
+
+        }
+
+        document.getElementById("fileName").innerText =
+
+            "Selected File : " + file.name;
+
+        document.getElementById("scanStatus").innerText =
+
+            "Uploading...";
+
+        const formData = new FormData();
+
+        formData.append("file", file);
+
+        try {
+
+            const start = performance.now();
+
+            const response = await fetch("/upload", {
+
+                method: "POST",
+
+                body: formData
+
+            });
+
+            const data = await response.json();
+
+            const end = performance.now();
+
+            document.getElementById("scanTime").innerText =
+
+                ((end - start) / 1000).toFixed(2) + " s";
+
+            document.getElementById("inputText").value =
+
+                data.original || "";
+
+            displayResults(data);
+
+            document.getElementById("scanStatus").innerText =
+
+                "Completed";
+
+            showToast("Document scanned successfully");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            document.getElementById("scanStatus").innerText =
+
+                "Error";
+
+            showToast("Upload failed");
+
+        }
+
+    });
 
 }
