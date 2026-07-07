@@ -1,76 +1,106 @@
-🏥 HealthTech - Automated PHI/PII Redaction Pipeline
+# 🏥 HealthTech - Automated PHI/PII Redaction Pipeline
 
-A secure healthcare privacy protection system that automatically detects and redacts Protected Health Information (PHI) and Personally Identifiable Information (PII) from clinical text and uploaded healthcare documents before sharing them with AI models or external systems.
+A secure healthcare privacy protection system that automatically detects and redacts **Protected Health Information (PHI)** and **Personally Identifiable Information (PII)** from clinical text and uploaded healthcare documents before sharing them with AI models or external systems.
 
-📖 Project Overview
+---
 
-Healthcare organizations handle large volumes of sensitive patient information that must be protected to comply with privacy regulations such as HIPAA. This project provides an automated PHI/PII redaction pipeline that detects confidential information using Microsoft Presidio and Regex, replacing sensitive data with secure placeholders while preserving the clinical meaning of the document.
+# 📖 Project Overview
 
-The application also includes an interactive dashboard, analytics, document upload, scan history, and downloadable reports.
+Healthcare organizations process sensitive patient information that must be protected before being shared with AI applications. This project provides an automated PHI/PII redaction pipeline that detects confidential information using **Microsoft Presidio** and **Regex**, replacing sensitive data with secure placeholders while preserving the clinical context.
 
-🎯 Project Objectives
-Detect sensitive PHI/PII from healthcare documents.
-Automatically redact confidential information.
-Protect patient privacy before data is shared with AI systems.
-Provide real-time analytics and security insights.
-Improve healthcare data security using AI-assisted privacy protection.
-🏗️ System Architecture
+The application includes an interactive dashboard, document upload support, analytics visualization, scan history, and downloadable reports.
 
-(Insert architecture image here)
+---
+
+# 🎯 Project Objectives
+
+- Detect PHI/PII from healthcare documents.
+- Automatically redact sensitive information.
+- Protect patient privacy before sharing data with AI systems.
+- Provide real-time analytics and security insights.
+- Support secure healthcare data processing.
+
+---
+
+# 🏗️ System Architecture
 
 ![System Architecture](images/architecture.jpg)
-🔄 System Workflow
-User
-   │
-   ▼
-Upload PDF/TXT or Enter Clinical Notes
-   │
-   ▼
-FastAPI Backend
-   │
-   ├── Regex Detection
-   └── Microsoft Presidio NLP
-            │
-            ▼
-      PHI/PII Detection
-            │
-            ▼
-     Sensitive Data Redaction
-            │
-            ▼
- Dashboard + Analytics + Reports
-✨ Features
-🔒 PHI & PII Detection
-🛡 Automatic Data Redaction
-📄 TXT Upload
-📑 PDF Upload
-📊 Analytics Dashboard
-📈 PHI Analytics Chart
-📋 Entity Detection Table
-📜 Scan History
-📄 Download Report
-📋 Copy Output
-⚠ Risk Level Indicator
-⏱ Scan Time Monitoring
-✅ Scan Status Updates
-📱 Responsive Dashboard UI
-🛠 Technologies Used
-Backend
-Python
-FastAPI
-Microsoft Presidio
-Regex
-Frontend
-HTML5
-CSS3
-JavaScript
-Chart.js
-Development Tools
-Git
-GitHub
-VS Code
-📂 Project Structure
-HealthTech/
+
+---
+
+## 🔄 System Workflow
+
+```text
+              User
+                │
+                ▼
+ Upload PDF/TXT or Enter Clinical Notes
+                │
+                ▼
+         FastAPI Backend
+                │
+     ┌──────────┴──────────┐
+     │                     │
+     ▼                     ▼
+ Regex Detection    Microsoft Presidio
+     │                     │
+     └──────────┬──────────┘
+                ▼
+       PHI/PII Detection
+                │
+                ▼
+      Sensitive Data Redaction
+                │
+                ▼
+ Dashboard Analytics & Reports
+```
+
+---
+
+# ✨ Features
+
+- 🔒 PHI & PII Detection
+- 🛡️ Automatic Data Redaction
+- 📄 TXT File Upload
+- 📑 PDF File Upload
+- 📊 Analytics Dashboard
+- 📈 PHI Analytics Chart
+- 📋 Entity Detection Table
+- 📜 Recent Scan History
+- 📄 Download Redacted Report
+- 📋 Copy Redacted Output
+- ⚠️ Risk Level Indicator
+- ⏱️ Scan Time Monitoring
+- ✅ Scan Status Updates
+- 📱 Responsive Dashboard UI
+
+---
+
+# 🛠️ Technologies Used
+
+## Backend
+- Python
+- FastAPI
+- Microsoft Presidio
+- Regex
+
+## Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Chart.js
+
+## Development Tools
+- Git
+- GitHub
+- VS Code
+
+---
+
+# 📂 Project Structure
+
+```text
+HealthTech---Automated-phi-pii-Redaction-Pipeline-f/
 │
 ├── api/
 │   ├── main.py
@@ -78,7 +108,9 @@ HealthTech/
 │
 ├── static/
 │   ├── css/
+│   │   └── style.css
 │   └── js/
+│       └── script.js
 │
 ├── templates/
 │   └── index.html
@@ -94,82 +126,147 @@ HealthTech/
 │
 ├── requirements.txt
 └── README.md
-🚀 Installation
+```
 
-Clone the repository
+---
 
+# 🚀 Installation
+
+### Clone the Repository
+
+```bash
 git clone https://github.com/anusree-2003/HealthTech---Automated-phi-pii-Redaction-Pipeline-f.git
+```
 
-Navigate to the project
+### Navigate to the Project Folder
 
+```bash
 cd HealthTech---Automated-phi-pii-Redaction-Pipeline-f
+```
 
-Install dependencies
+### Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
-Run the application
+### Run the Application
 
+```bash
 uvicorn api.main:app --reload
+```
 
-Open your browser:
+### Open in Browser
 
+```
 http://127.0.0.1:8000
-📊 Dashboard Modules
-Dashboard
-Document Upload
-Detect & Redact
-Analytics
-Scan History
-Security Summary
-Reports
-📷 Application Screenshots
-Dashboard
+```
+
+---
+
+# 📊 Dashboard Modules
+
+- 🏠 Dashboard
+- 📄 Document Upload
+- 🛡️ Detect & Redact
+- 📊 Analytics
+- 📜 Scan History
+- 📄 Reports
+- ⚠️ Risk Level
+- 🔒 Security Summary
+
+---
+
+# 📷 Application Screenshots
+
+## 🖥️ Dashboard
+
 ![Dashboard](images/dashboard.png)
-Analytics
+
+---
+
+## 📊 PHI Analytics
+
 ![Analytics](images/analytics.png)
-Redacted Output
+
+---
+
+## 📄 Redacted Output
+
 ![Output](images/output.png)
-Document Upload
+
+---
+
+## 📂 Document Upload
+
 ![Upload](images/upload.png)
-🔄 Working Flow
-User uploads a TXT/PDF file or enters clinical notes.
-FastAPI receives the request.
-Microsoft Presidio and Regex detect PHI/PII entities.
-Sensitive information is securely redacted.
-The dashboard displays the analytics, detected entities, scan history, and redacted output.
-Users can download or copy the generated report.
-👥 Team Responsibilities
-Member	Responsibility
-Member 1 (Anusree)	Backend API Development, Dashboard Integration, Analytics, Scan History, TXT/PDF Upload
-Member 2	NLP-based PHI/PII Detection
-Member 3	Pseudonymization & Storage
-Member 4	Testing & Documentation
-👩‍💻 My Contribution (Member 1)
-Developed the FastAPI backend integration.
-Connected frontend with backend APIs.
-Implemented the interactive dashboard.
-Added analytics using Chart.js.
-Developed scan history functionality.
-Integrated TXT and PDF upload.
-Implemented report download and copy features.
-Performed integration testing and bug fixes.
-🎯 Project Outcome
 
-The HealthTech PHI/PII Redaction Pipeline successfully detects and redacts sensitive healthcare information from clinical text and uploaded documents. The system provides an intuitive dashboard with analytics, scan history, risk assessment, and downloadable reports, helping protect patient privacy before healthcare data is processed by AI applications.
+---
 
-📌 Future Enhancements
-Reversible pseudonymization
-Database integration
-OCR support for scanned documents
-User authentication
-Cloud deployment
-Enhanced HIPAA compliance
-Multi-user support
-📜 License
+# 🔄 Working Flow
 
-This project was developed as part of a Cyber Security Internship for educational and learning purposes.
+1. User uploads a TXT/PDF document or enters clinical notes.
+2. FastAPI receives the request.
+3. Microsoft Presidio and Regex detect PHI/PII entities.
+4. Sensitive information is securely redacted.
+5. The dashboard displays:
+   - Detected entities
+   - Analytics chart
+   - Risk level
+   - Scan history
+   - Redacted output
+6. Users can copy or download the generated report.
 
-🙏 Acknowledgements
+---
 
-We sincerely thank our internship mentors, team members, and the organization for their continuous guidance and support throughout the successful development of this project.
+# 👥 Team Responsibilities
+
+| Member | Responsibility |
+|---------|----------------|
+| **Member 1 (Anusree)** | Backend API Development, Dashboard Integration, Analytics, Scan History, TXT/PDF Upload |
+| **Member 2** | NLP-Based PHI/PII Detection |
+| **Member 3** | Pseudonymization & Storage |
+| **Member 4** | Testing & Documentation |
+
+---
+
+# 👩‍💻 My Contribution
+
+- Developed FastAPI backend integration.
+- Connected frontend with backend APIs.
+- Implemented the interactive dashboard.
+- Added Chart.js analytics visualization.
+- Developed the scan history module.
+- Integrated TXT and PDF upload functionality.
+- Implemented report download and copy features.
+- Performed testing, debugging, and code cleanup.
+
+---
+
+# 🎯 Project Outcome
+
+The HealthTech PHI/PII Redaction Pipeline successfully detects and redacts sensitive healthcare information from clinical text and uploaded documents. The application provides an interactive dashboard, analytics visualization, scan history, downloadable reports, and secure document processing, helping protect patient privacy before healthcare data is processed by AI systems.
+
+---
+
+# 📌 Future Enhancements
+
+- Reversible pseudonymization
+- Database integration
+- OCR support for scanned documents
+- User authentication
+- Cloud deployment
+- Enhanced HIPAA compliance
+- Multi-user support
+
+---
+
+# 📜 License
+
+This project was developed as part of a **Cyber Security Internship** for educational and learning purposes.
+
+---
+
+# 🙏 Acknowledgements
+
+We sincerely thank our internship mentors, teammates, and the organization for their valuable guidance and support throughout the successful development of this project.
