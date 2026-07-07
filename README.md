@@ -1,4 +1,5 @@
 
+
 # 🏥 HealthTech - Automated PHI/PII Redaction Pipeline
 
 A secure healthcare privacy protection system that automatically detects and redacts **Protected Health Information (PHI)** and **Personally Identifiable Information (PII)** from clinical text and uploaded healthcare documents before sharing them with AI models or external systems.
@@ -80,10 +81,33 @@ The application includes an interactive dashboard, document upload support, anal
 # 🛠️ Technologies Used
 
 ## Backend
+=======
+# 👨‍💻 Rohan - Pseudonymization & Redaction Module (Member 3)
+
+## 📌 Overview
+
+This branch contains my contributions to the **HealthTech - Automated PHI/PII Redaction Pipeline** project. My responsibility was implementing the data redaction and pseudonymization module for protecting sensitive healthcare information.
+
+---
+
+## 🚀 My Contributions
+
+- Developed the anonymization module
+- Implemented PHI/PII redaction logic
+- Created mapping configuration
+- Added test cases for redaction functionality
+- Supported secure healthcare data processing
+
+---
+
+## 🛠️ Technologies Used
+
+>>>>>>> rohan
 - Python
 - FastAPI
 - Microsoft Presidio
 - Regex
+<<<<<<< HEAD
 
 ## Frontend
 - HTML5
@@ -127,10 +151,23 @@ HealthTech---Automated-phi-pii-Redaction-Pipeline-f/
 │
 ├── requirements.txt
 └── README.md
+=======
+- Git & GitHub
+
+---
+
+## 📂 Files Included
+
+```
+anonymizer.py
+mapping.json
+test_redaction.py
+>>>>>>> rohan
 ```
 
 ---
 
+<<<<<<< HEAD
 # 🚀 Installation
 
 ### Clone the Repository
@@ -274,3 +311,16 @@ We sincerely thank our internship mentors, teammates, and the organization for t
 =======
 #HealthTech - Automated PHI/PII Redaction Pipeline for LLMs
 >>>>>>> anusree
+=======
+## ✅ Status
+
+- Module Development – Completed ✅
+- Redaction Logic – Completed ✅
+- Testing – Completed ✅
+
+---
+
+## 📄 Note
+
+This branch contains my individual contribution as **Member 3 (Pseudonymization & Redaction Module)** for the HealthTech Cyber Security Internship Project.
+>>>>>>> rohan
