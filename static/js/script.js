@@ -1,3 +1,5 @@
+// alert("Script loaded");
+let analyticsChart = null;
 // =======================================
 // Detect PHI / PII
 // =======================================
@@ -39,8 +41,18 @@ async function detectPII() {
 
         displayResults(data);
 
+        // alert("After displayResults");
+
+        // alert("Before updateHistory");
+
+        updateHistory("Manual Text");
+
+        // alert("After updateHistory");
+
         document.getElementById("scanStatus").innerText =
-            "Completed";
+        "Completed";    
+
+        
 
         document.getElementById("scanStatus").classList.remove("loading");
 
@@ -156,8 +168,13 @@ function displayResults(data) {
 
     updateRisk(data.entity_count);
 
+    if (data.entities) {
+
+    updateChart(data.entities);
+
 }
 
+}
 
 
 // =======================================
@@ -433,6 +450,8 @@ if (upload) {
 
             displayResults(data);
 
+            updateHistory(file.name);
+
             document.getElementById("scanStatus").innerText =
 
                 "Completed";
@@ -456,3 +475,129 @@ if (upload) {
     });
 
 }
+
+function updateChart(entities) {
+
+    const counts = {};
+
+    entities.forEach(entity => {
+
+        const name =
+            entity.entity ||
+            entity.label ||
+            entity.type ||
+            "PHI";
+
+        counts[name] = (counts[name] || 0) + 1;
+
+    });
+
+    const labels = Object.keys(counts);
+    const values = Object.values(counts);
+
+    const ctx = document
+        .getElementById("analyticsChart")
+        .getContext("2d");
+
+    if (analyticsChart) {
+        analyticsChart.destroy();
+    }
+
+    analyticsChart = new Chart(ctx, {
+
+        type: "bar",
+
+        data: {
+
+            labels: labels,
+
+            datasets: [{
+
+                label: "Detected PHI",
+
+                data: values,
+
+                backgroundColor: [
+
+                    "#2563eb",
+                    "#16a34a",
+                    "#f59e0b",
+                    "#dc2626",
+                    "#9333ea",
+                    "#0891b2"
+
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true,
+
+                    ticks: {
+
+                        precision: 0
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+function updateHistory(fileName = "Manual Text") {
+    // alert("History function called");
+
+    const table = document.getElementById("historyTable");
+
+    const time = new Date().toLocaleTimeString();
+
+    if (table.innerHTML.includes("No scans yet")) {
+        table.innerHTML = "";
+    }
+
+    table.innerHTML =
+        `<tr>
+            <td>${time}</td>
+            <td>${fileName}</td>
+            <td>Completed ✅</td>
+        </tr>` + table.innerHTML;
+
+}
+
+// function updateHistory(fileName = "Manual Text") {
+
+//     const table = document.getElementById("historyTable");
+
+//     alert(table);
+
+//     table.innerHTML = `
+//         <tr>
+//             <td>${new Date().toLocaleTimeString()}</td>
+//             <td>${fileName}</td>
+//             <td>Completed ✅</td>
+//         </tr>
+//     `;
+// }

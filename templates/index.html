@@ -2,67 +2,182 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>HealthTech Secure PHI/PII Dashboard</title>
 
     <link rel="stylesheet" href="/static/css/style.css">
-
 </head>
+
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <!-- Header -->
+    <!-- ================= Sidebar ================= -->
 
-    <header>
+    <aside class="sidebar">
 
-        <h1>🏥 HealthTech Secure PHI/PII Dashboard</h1>
+        <div class="logo">
 
-        <p>
-            AI Powered Healthcare Privacy & Cyber Security Platform
-        </p>
+            <h2>🏥 HealthTech</h2>
 
-        <small>
-            FastAPI • Presidio NLP • Regex Detection Engine
-        </small>
+            <p>Cyber Security</p>
 
-    </header>
-
-    <!-- Dashboard -->
-
-    <section class="dashboard">
-
-        <div class="card">
-            <h3>Total PHI Found</h3>
-            <h2 id="phiCount">0</h2>
         </div>
 
-        <div class="card">
-            <h3>Risk Level</h3>
-            <h2 id="riskLevel" class="low">Low 🟢</h2>
-        </div>
+        <nav>
 
-        <div class="card">
-            <h3>Scan Time</h3>
-            <h2 id="scanTime">0.00 s</h2>
-        </div>
+            <ul>
 
-        <div class="card">
-            <h3>API Status</h3>
-            <h2 class="online">Online 🟢</h2>
-        </div>
+                <li class="active">
+                    🏠 Dashboard
+                </li>
 
-    </section>
+                <li>
+                    📄 Document Scan
+                </li>
 
-    <!-- Input Section -->
+                <li>
+                    📊 Analytics
+                </li>
 
-    <section class="box">
+                <li>
+                    📜 Reports
+                </li>
 
-        <h2>📄 Upload Healthcare Document</h2>
+                <li>
+                    📂 Scan History
+                </li>
+
+                <li>
+                    ⚙ Settings
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= Main ================= -->
+
+    <main class="main-content">
+
+        <!-- Top Navbar -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    🏥 HealthTech Secure PHI/PII Dashboard
+                </h1>
+
+                <p>
+                    AI Powered Healthcare Privacy Protection Platform
+                </p>
+
+            </div>
+
+            <div class="top-icons">
+
+                <span title="Notifications">
+                    🔔
+                </span>
+
+                <span title="Dark Mode">
+                    🌙
+                </span>
+
+                <span title="Admin">
+                    👤 Admin
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- Dashboard Cards -->
+
+        <section class="dashboard">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛡
+                </div>
+
+                <h3>Total PHI Found</h3>
+
+                <h2 id="phiCount">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ⚠
+                </div>
+
+                <h3>Risk Level</h3>
+
+                <h2 id="riskLevel" class="low">
+
+                    Low 🟢
+
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ⏱
+                </div>
+
+                <h3>Scan Time</h3>
+
+                <h2 id="scanTime">
+
+                    0.00 s
+
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🌐
+                </div>
+
+                <h3>API Status</h3>
+
+                <h2 class="online">
+
+                    Online 🟢
+
+                </h2>
+
+            </div>
+
+        </section>
+
+        <!-- ================= Upload + Manual Input ================= -->
+
+<section class="content-grid">
+
+    <!-- Left Panel -->
+
+    <div class="box">
+
+        <h2>
+            📄 Upload Healthcare Document
+        </h2>
 
         <div class="upload-section">
 
@@ -70,16 +185,20 @@
 
                 <div>
 
-                    <div class="upload-icon">📁</div>
+                    <div class="upload-icon">
+                        📁
+                    </div>
 
-                    <h3>Upload Clinical Document</h3>
+                    <h3>
+                        Upload Clinical Document
+                    </h3>
 
                     <p>
                         Drag & Drop or Click to Browse
                     </p>
 
                     <small>
-                        Supported Files : PDF • TXT
+                        Supported Files: PDF • TXT
                     </small>
 
                 </div>
@@ -99,10 +218,16 @@
         </div>
 
         <div class="divider">
+
             OR
+
         </div>
 
-        <h2>📝 Clinical Notes</h2>
+        <h2>
+
+            📝 Clinical Notes
+
+        </h2>
 
         <textarea
             id="inputText"
@@ -111,30 +236,114 @@
         <div class="buttons">
 
             <button onclick="loadSample()">
-                Sample
+
+                📄 Sample
+
             </button>
 
             <button onclick="clearText()">
-                Clear
+
+                🗑 Clear
+
             </button>
 
             <button class="primary" onclick="detectPII()">
-                Detect & Redact
+
+                🛡 Detect & Redact
+
             </button>
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- Entity Table -->
+    <!-- Right Panel -->
 
-    <section class="box">
+    <div class="box">
 
-        <h2>📋 Detected PHI / PII</h2>
+        <h2>
 
-        <table>
+            🔒 Live Security Summary
 
-            <thead>
+        </h2>
+
+        <div class="summary-grid">
+
+            <div class="summary-card">
+
+                <h3>
+
+                    Total Entities
+
+                </h3>
+
+                <h1 id="summaryCount">
+
+                    0
+
+                </h1>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>
+
+                    Scan Status
+
+                </h3>
+
+                <h2 id="scanStatus">
+
+                    Ready
+
+                </h2>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>
+
+                    Protection
+
+                </h3>
+
+                <h2 class="protected">
+
+                    Protected 🟢
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <h3 style="margin-top:25px;">
+
+            Detected Categories
+
+        </h3>
+
+        <ul id="summaryList">
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ================= Entity Table ================= -->
+
+<section class="box">
+
+    <h2>
+        📋 Detected PHI / PII
+    </h2>
+
+    <table>
+
+        <thead>
 
             <tr>
 
@@ -146,120 +355,206 @@
 
             </tr>
 
+        </thead>
+
+        <tbody id="entityTable">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+
+<!-- ================= Bottom Grid ================= -->
+
+<section class="content-grid">
+
+    <!-- Redacted Output -->
+
+    <div class="box">
+
+        <h2>
+            🛡 Secure Redacted Output
+        </h2>
+
+        <textarea
+            id="outputText"
+            readonly
+            placeholder="Redacted output will appear here..."></textarea>
+
+        <div class="buttons">
+
+            <button onclick="copyOutput()">
+                📋 Copy
+            </button>
+
+            <button onclick="downloadReport()">
+                📄 Download Report
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Scan History -->
+
+    <div class="box">
+
+        <h2>
+            📜 Recent Scan History
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Time</th>
+
+                    <th>File</th>
+
+                    <th>Status</th>
+
+                </tr>
+
             </thead>
 
-            <tbody id="entityTable">
+            <tbody id="historyTable">
+
+                <tr>
+
+                    <td colspan="3">
+
+                        No scans yet
+
+                    </td>
+
+                </tr>
 
             </tbody>
 
         </table>
 
-    </section>
+    </div>
 
-    <!-- Output -->
+</section>
 
-    <section class="box">
 
-        <h2>🛡 Secure Redacted Output</h2>
 
-        <textarea
-            id="outputText"
-            readonly></textarea>
+<!-- ================= Analytics ================= -->
 
-        <div class="buttons">
+<section class="box">
 
-            <button onclick="copyOutput()">
+    <h2>
+        📊 PHI Analytics
+    </h2>
 
-                📋 Copy
+    <canvas id="analyticsChart" height="120"></canvas>
 
-            </button>
+</section>
 
-            <button onclick="downloadReport()">
 
-                📄 Download Report
 
-            </button>
+<!-- ================= Security Report ================= -->
 
-        </div>
+<section class="box">
 
-    </section>
+    <h2>
+        📄 Security Report
+    </h2>
 
-    <!-- Security Summary -->
+    <div class="summary-grid">
 
-    <section class="summary">
+        <div class="summary-card">
 
-        <h2>🔒 Security Summary</h2>
+            <h3>
 
-        <div class="summary-grid">
+                Scan Engine
 
-            <div class="summary-card">
+            </h3>
 
-                <h3>Total Entities</h3>
+            <h2>
 
-                <h1 id="summaryCount">0</h1>
+                FastAPI + Presidio
 
-            </div>
-
-            <div class="summary-card">
-
-                <h3>Scan Status</h3>
-
-                <h2 id="scanStatus">
-                    Ready
-                </h2>
-
-            </div>
-
-            <div class="summary-card">
-
-                <h3>Protection</h3>
-
-                <h2 class="protected">
-                    Protected 🟢
-                </h2>
-
-            </div>
+            </h2>
 
         </div>
 
-        <h3 style="margin-top:25px;">
-            Detected Categories
-        </h3>
+        <div class="summary-card">
 
-        <ul id="summaryList">
+            <h3>
 
-        </ul>
+                Security Status
 
-    </section>
+            </h3>
 
-    <!-- Footer -->
+            <h2 class="protected">
 
-    <footer>
+                Protected 🟢
 
-        <p>
+            </h2>
 
-            © 2026 HealthTech PHI/PII Redaction Pipeline
+        </div>
 
-        </p>
+        <div class="summary-card">
 
-        <p>
+            <h3>
 
-            Cyber Security Internship Project
+                Compliance
 
-        </p>
+            </h3>
 
-        <p>
+            <h2>
 
-            Powered by FastAPI & Presidio NLP
+                HIPAA Ready
 
-        </p>
+            </h2>
 
-    </footer>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= Footer ================= -->
+
+<footer>
+
+    <p>
+
+        © 2026 HealthTech PHI/PII Redaction Pipeline
+
+    </p>
+
+    <p>
+
+        Cyber Security Internship Project
+
+    </p>
+
+    <p>
+
+        Powered by FastAPI • Presidio NLP • Regex Detection
+
+    </p>
+
+</footer>
+
+</main>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="/static/js/script.js"></script>
 
 </body>
 
 </html>
+
