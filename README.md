@@ -1,158 +1,70 @@
-# 🏥 HealthTech - Automated PHI/PII Redaction Pipeline
+# 👩‍💻 Anusree - Backend Development (Member 1)
 
-A secure healthcare privacy protection system that automatically detects and redacts Protected Health Information (PHI) and Personally Identifiable Information (PII) from clinical text and uploaded documents before sharing with AI models or external systems.
+## 📌 Overview
 
----
-
-# 📖 Project Overview
-
-Healthcare organizations often process sensitive patient information that must be protected before being shared with AI applications. This project provides an automated PHI/PII redaction pipeline that identifies confidential information and replaces it with secure placeholders while preserving the overall clinical context.
-
-The application includes an interactive dashboard, document upload support, analytics visualization, scan history, and downloadable reports.
+This branch contains my contributions to the **HealthTech - Automated PHI/PII Redaction Pipeline** project. My primary responsibility was backend development, API integration, dashboard enhancements, and frontend-backend communication.
 
 ---
 
-# 🏗️ System Architecture
+## 🚀 My Contributions
 
-> *(Add your architecture diagram here)*
-
-![System Architecture](images/architecture.jpg)
-
-### Workflow
-
-```
-              User
-                │
-                ▼
-      HealthTech Dashboard
-      (HTML • CSS • JavaScript)
-                │
-                ▼
-         FastAPI Backend
-                │
-     ┌──────────┴──────────┐
-     │                     │
-     ▼                     ▼
- Regex Detection    Microsoft Presidio
-     │                     │
-     └──────────┬──────────┘
-                ▼
-       PHI/PII Detection
-                │
-                ▼
-      Sensitive Data Redaction
-                │
-                ▼
-      Secure Redacted Output
-                │
-                ▼
- Dashboard Analytics & Reports
-```
+- Developed FastAPI backend integration
+- Connected frontend with backend APIs
+- Implemented PHI/PII detection workflow
+- Added analytics using Chart.js
+- Implemented scan history
+- Added TXT and PDF upload functionality
+- Implemented report download feature
+- Added copy output functionality
+- Performed testing, debugging, and code cleanup
 
 ---
 
-# ✨ Features
-
-- 🔒 PHI & PII Detection
-- 🛡️ Automatic Data Redaction
-- 📄 TXT File Upload
-- 📑 PDF File Upload
-- 📊 Analytics Dashboard
-- 📈 PHI Analytics Chart
-- 📋 Entity Detection Table
-- 📜 Recent Scan History
-- 📄 Download Redacted Report
-- 📋 Copy Redacted Output
-- ⚠️ Risk Level Indicator
-- ⏱️ Scan Time Monitoring
-- ✅ Scan Status Updates
-- 📱 Responsive Dashboard UI
-
----
-
-# 🛠️ Technologies Used
-
-### Backend
+## 🛠️ Technologies Used
 
 - Python
 - FastAPI
 - Microsoft Presidio
-- Regex
-
-### Frontend
-
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
 - Chart.js
-
-### Tools
-
-- Git
-- GitHub
-- VS Code
+- Git & GitHub
 
 ---
 
-# 📂 Project Structure
+## 📂 Files Modified
 
 ```
-HealthTech/
-│
-├── api/
-│   ├── main.py
-│   ├── detector.py
-│
-├── static/
-│   ├── css/
-│   │     └── style.css
-│   ├── js/
-│   │     └── script.js
-│
-├── templates/
-│     └── index.html
-│
-├── uploads/
-│
-├── images/
-│     ├── architecture.jpg
-│     ├── dashboard.png
-│     ├── analytics.png
-│     └── output.png
-│
-├── requirements.txt
-└── README.md
+api/
+static/css/style.css
+static/js/script.js
+templates/index.html
 ```
 
 ---
 
-# 🚀 Installation
+## ▶️ How to Run
 
-## Clone Repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/anusree-2003/HealthTech---Automated-phi-pii-Redaction-Pipeline-f.git
 ```
 
-## Navigate to Project
-
-```bash
-cd HealthTech---Automated-phi-pii-Redaction-Pipeline-f
-```
-
-## Install Dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Run the Server
+Run the application:
 
 ```bash
 uvicorn api.main:app --reload
 ```
 
-Open your browser:
+Open:
 
 ```
 http://127.0.0.1:8000
@@ -160,94 +72,32 @@ http://127.0.0.1:8000
 
 ---
 
-# 📊 Dashboard Modules
+## 📸 Screenshots
 
-- Dashboard
-- Document Upload
-- Detect & Redact
-- Analytics
-- Scan History
-- Reports
-- Risk Level
-- Security Summary
-
----
-
-# 📷 Application Screenshots
-
-## Dashboard
+### Dashboard
 
 ![Dashboard](images/dashboard.png)
 
----
-
-## PHI Analytics
+### Analytics
 
 ![Analytics](images/analytics.png)
 
----
-
-## Redacted Output
+### Redacted Output
 
 ![Output](images/output.png)
 
 ---
 
-## Document Upload
+## ✅ Status
 
-![Upload](images/upload.png)
-
----
-
-# 🔄 Working Flow
-
-1. User enters text or uploads a TXT/PDF document.
-2. FastAPI receives the request.
-3. Microsoft Presidio and Regex detect PHI/PII entities.
-4. Sensitive information is automatically redacted.
-5. The dashboard displays:
-   - Redacted output
-   - Entity table
-   - Analytics chart
-   - Risk level
-   - Scan history
-6. Users can copy or download the generated report.
+- Week 1 – Completed ✅
+- Week 2 – Completed ✅
+- Week 3 – Completed ✅
+- Week 4 – Completed ✅
+- Final Testing – Completed ✅
 
 ---
 
-# 🎯 Project Outcome
+## 📄 Note
 
-Successfully developed a healthcare privacy protection system capable of detecting and redacting sensitive patient information while providing an interactive dashboard, analytics visualization, document upload support, scan history, and downloadable reports.
-
----
-
-# 👥 Team Members
-
-| Member | Responsibility |
-|---------|----------------|
-| **Anusree** | Backend API Development, Dashboard Integration, Analytics, Scan History, PDF/TXT Upload |
-| Member 2 | NLP Entity Detection |
-| Member 3 | Pseudonymization & Storage |
-| Member 4 | Testing & Documentation |
-
----
-
-# 📌 Future Enhancements
-
-- Reversible pseudonymization
-- Database integration
-- User authentication
-- OCR support for scanned documents
-- REST API authentication
-- Export reports in multiple formats
-- Cloud deployment
-
----
-
-# 📜 License
-
-This project was developed as part of a **Cyber Security Internship** for educational and learning purposes.
-
----
-
-## ⭐ If you found this project useful, consider giving it a star on GitHub!
+This branch contains my individual contributions as **Member 1 (Backend/API Developer)** for the HealthTech internship project.
