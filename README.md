@@ -1,3 +1,4 @@
+
 # 🏥 HealthTech - Automated PHI/PII Redaction Pipeline
 
 A secure healthcare privacy protection system that automatically detects and redacts **Protected Health Information (PHI)** and **Personally Identifiable Information (PII)** from clinical text and uploaded healthcare documents before sharing them with AI models or external systems.
@@ -270,3 +271,6 @@ This project was developed as part of a **Cyber Security Internship** for educat
 # 🙏 Acknowledgements
 
 We sincerely thank our internship mentors, teammates, and the organization for their valuable guidance and support throughout the successful development of this project.
+=======
+#HealthTech - Automated PHI/PII Redaction Pipeline for LLMs
+>>>>>>> anusree
