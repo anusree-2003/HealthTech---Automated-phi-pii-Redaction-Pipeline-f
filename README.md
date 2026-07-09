@@ -181,25 +181,25 @@ http://127.0.0.1:8000
 
 ## 🖥️ Dashboard
 
-![Dashboard](images/dashboard.png)
+![Dashboard](Dashboard.jpeg)
 
 ---
 
 ## 📊 PHI Analytics
 
-![Analytics](images/analytics.png)
+![Analytics](Analytics.jpeg)
 
 ---
 
 ## 📄 Redacted Output
 
-![Output](images/output.png)
+![Output](output.jpeg)
 
 ---
 
 ## 📂 Document Upload
 
-![Upload](images/upload.png)
+![Upload](upload.jpegg)
 
 ---
 
