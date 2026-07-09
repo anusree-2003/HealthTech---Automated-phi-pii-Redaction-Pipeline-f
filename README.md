@@ -199,7 +199,7 @@ http://127.0.0.1:8000
 
 ## 📂 Document Upload
 
-![Upload](upload.jpegg)
+![Upload](upload.jpeg)
 
 ---
 
