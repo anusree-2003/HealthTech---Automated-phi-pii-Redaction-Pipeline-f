@@ -20,13 +20,7 @@ The application includes an interactive dashboard, document upload support, anal
 - Provide real-time analytics and security insights.
 - Support secure healthcare data processing.
 
----
-
-# 🏗️ System Architecture
-
-![System Architecture](images/architecture.jpg)
-
----
+--
 
 ## 🔄 System Workflow
 
